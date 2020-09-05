@@ -35,6 +35,14 @@
     "name": "Bruno Kurt",
     "email": "brunojkurt@gmail.com"
   },
+  "homepage": "https://github.com/brunojkurt/snackfy",
+  "repository": {
+    "url": "git+https://github.com/brunojkurt/snackfy.git",
+    "type": "git"
+  },
+  "bugs": {
+    "url": "https://github.com/brunojkurt/snackfy/issues"
+  },
   "license": "ISC",
   "peerDependencies": {},
   "devDependencies": {
