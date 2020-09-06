@@ -1,6 +1,6 @@
 {
   "name": "snackfy",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Snackfy is a notification provider for React that can easily show, stack up, queue and customize notifications inside your react app.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
