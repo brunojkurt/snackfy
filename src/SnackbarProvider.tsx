@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import SnackbarItem from './components/SnackbarItem';
 import { SnackWrapper } from './components/SnackbarItem/style';
 import SnackbarContext from './SnackbarContext';
@@ -62,7 +62,7 @@ const SnackbarProvider: React.FC<TSnackbarProvider> = ({ children, maxSnacks = 3
   }
 
   const contextValue: TProviderContext = {
-    enqueueSnackbar: enqueue,
+    enqueueSnackbar: useCallback(enqueue, []),
     closeSnackbar: dismiss
   }
 
