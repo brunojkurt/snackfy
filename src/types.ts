@@ -1,3 +1,5 @@
+import { CSSProperties } from 'react';
+
 interface TAction {
   name: string;
   action: () => void;
@@ -8,11 +10,24 @@ interface TActions {
   second?: TAction;
 }
 
+export type TCustomStyleObj = CSSProperties | undefined;
+
+interface TCustomStyle {
+  default?: TCustomStyleObj;
+  success?: TCustomStyleObj;
+  error?: TCustomStyleObj;
+  warning?: TCustomStyleObj;
+  info?: TCustomStyleObj;
+}
+
 interface TOptions {
   countdown?: number;
   persist?: boolean;
   dismissible?: boolean;
   variant?: 'success' | 'error' | 'warning' | 'info';
+  customIcon?: any;
+  customStyle?: TCustomStyle;
+  customDismiss?: any;
 }
 
 export interface TQueueableSnackbar {
@@ -40,6 +55,8 @@ export interface TPlacement {
 export interface TSnackbarProvider {
   maxSnacks?: number;
   placement?: TPlacement;
+  customStyle?: TCustomStyle;
+  customDismiss?: any;
 }
 
 export interface TProviderContext {

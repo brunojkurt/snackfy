@@ -4,7 +4,15 @@ import { SnackWrapper } from './components/SnackbarItem/style';
 import SnackbarContext from './SnackbarContext';
 import { TSnackbarProvider, TSnackbar, TQueueableSnackbar, TProviderContext } from './types';
 
-const SnackbarProvider: React.FC<TSnackbarProvider> = ({ children, maxSnacks = 3, placement = { vertical: 'bottom', horizontal: 'left' } }) => {
+const SnackbarProvider: React.FC<TSnackbarProvider> = (
+  {
+    children,
+    maxSnacks = 3,
+    customStyle,
+    customDismiss,
+    placement = { vertical: 'bottom', horizontal: 'left' }
+  }
+) => {
   const [ queue, setQueue ] = useState<TSnackbar[]>([]);
   const [ snackbars, setSnackbars ] = useState<TSnackbar[]>([]);
 
@@ -71,18 +79,26 @@ const SnackbarProvider: React.FC<TSnackbarProvider> = ({ children, maxSnacks = 3
       { children }
       {!!snackbars.length && (
         <SnackWrapper placement={placement}>
-          { snackbars.map(snack => (
-            <SnackbarItem
-              {...snack}
-              key={snack.id} 
-              placement={placement}
-              onDismiss={ () => dismiss(snack.id) }
-              onClose={() => {
-                remove(snack.id);
-                addNext();
-              }}
-            />
-          ))}
+          { snackbars.map(snack => {
+            const { options, ...rest } = snack
+            return (
+              <SnackbarItem
+                {...rest}
+                key={snack.id} 
+                placement={placement}
+                onDismiss={ () => dismiss(snack.id) }
+                onClose={() => {
+                  remove(snack.id);
+                  addNext();
+                }}
+                options={{
+                  customStyle,
+                  customDismiss,
+                  ...options
+                }}
+              />
+            )}
+          )}
         </SnackWrapper>
       )}
     </SnackbarContext.Provider>

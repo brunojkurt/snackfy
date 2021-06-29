@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useCallback } from 'react';
 import { Snack, MessageArea, ActionArea } from './style';
-import { TSnackbarItem } from '../../types';
+import { TSnackbarItem, TCustomStyleObj } from '../../types';
 import Button from '../Button';
 import {
   IoMdClose,
@@ -39,21 +39,31 @@ const SnackbarItem: React.FC<TSnackbarItem> = (props) => {
 
   }, [enqueueNext])
 
+  const defineCustomStyle = (): TCustomStyleObj => {
+    if (options?.customStyle) {
+      return options.customStyle[options?.variant || 'default']
+    }
+    return undefined
+  }
+
   return (
     <Snack
       ref={ref}
       open={open}
       variant={options?.variant}
-      placement={placement}>
+      placement={placement}
+      customStyle={defineCustomStyle()}
+    >
       <MessageArea>
-        { options?.variant && (
+        { (!options?.customIcon && options?.variant) && (
           <span className="icon">
             { options.variant === 'success' && ( <IoMdCheckmarkCircle/> ) }
             { options.variant === 'error' && ( <IoMdCloseCircle/> ) }
             { options.variant === 'warning' && ( <IoMdWarning/> ) }
             { options.variant === 'info' && ( <IoMdInformationCircle/> ) }
           </span>
-        )}
+        ) }
+        { options?.customIcon && options.customIcon }
         { message }
       </MessageArea>
       { actions && (
@@ -76,13 +86,20 @@ const SnackbarItem: React.FC<TSnackbarItem> = (props) => {
           )}
         </ActionArea>
       )}
-      { options?.dismissible && (
+      { (options?.dismissible && !options?.customDismiss) && (
         <span 
           className="dismiss"
           onClick={() => onDismiss()}>
           {<IoMdClose/>}
         </span>
       )}
+      { (options?.dismissible && options?.customDismiss) && (
+        <span 
+          className="dismiss"
+          onClick={() => onDismiss()}>
+          {options.customDismiss}
+        </span>
+      ) }
     </Snack>
   );
 }

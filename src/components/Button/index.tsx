@@ -12,7 +12,7 @@ export interface TButton extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const Button: React.FC<TButton> = (props) => {
-  const { ripple, children } = props;
+  const { ripple, children, ...rest } = props;
   const ref = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -51,7 +51,7 @@ const Button: React.FC<TButton> = (props) => {
   return (
     <ButtonBase
       ref={ref}
-      {...props}>
+      {...rest}>
         { children }
     </ButtonBase>
   );

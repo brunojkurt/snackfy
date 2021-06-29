@@ -36,8 +36,9 @@ const outlinedStyle = css`
 `;
 
 export const ButtonBase = styled.button<TButton>`
+  ${({ size }) => size === 'sm' && smStyle}
+  ${({ size }) => size === 'lg' && lgStyle}
   background: transparent;
-  color: ${({ color }) => color || 'rgba(0, 0, 0, 0.87)'};
   font-size: 0.875rem;
   padding: 6px 14px;
   min-width: 64px;
@@ -56,58 +57,89 @@ export const ButtonBase = styled.button<TButton>`
   height: fit-content;
   transition: background-color 250ms ease-in-out;
 
+  ${({ color }) =>
+    color
+      ? css`
+          color: ${color};
+        `
+      : css`
+          color: rgba(0, 0, 0, 0.87);
+        `}
+
   :hover {
     ${({ variant }) =>
-      variant !== 'contained' && {
-        backgroundColor: 'rgba(0, 0, 0, 0.08)',
-      }}
+      variant !== 'contained' &&
+      css`
+        background-color: rgba(0, 0, 0, 0.08);
+      `}
   }
 
   ${({ variant, background }) =>
-    variant === 'contained' && {
-      backgroundColor: background || 'rgba(0, 0, 0, 0.12)',
-      ...containedStyle,
-    }}
+    variant === 'contained' &&
+    css`
+      ${background
+        ? css`
+            background-color: ${background};
+          `
+        : css`
+            background-color: rgba(0, 0, 0, 0.12);
+          `}
+      ${containedStyle};
+    `}
 
   ${({ variant, color }) =>
-    variant === 'outlined' && {
-      borderColor: color || 'rgba(0, 0, 0, 0.87)',
-      ...outlinedStyle,
-    }}
-
-  ${({ size }) => size === 'sm' && smStyle}
-
-  ${({ size }) => size === 'lg' && lgStyle}
+    variant === 'outlined' &&
+    css`
+      ${color
+        ? css`
+            color: ${color};
+          `
+        : css`
+            color: rgba(0, 0, 0, 0.87);
+          `}
+      ${outlinedStyle};
+    `}
 
   ${({ disabled }) =>
-    disabled && {
-      color: 'rgba(0, 0, 0, 0.26)',
-      ...disabledStyle,
-    }}
+    disabled &&
+    css`
+      color: rgba(0, 0, 0, 0.26);
+      ${disabledStyle};
+    `}
 
   ${({ disabled, variant }) =>
     disabled &&
-    variant === 'contained' && {
-      backgroundColor: 'rgba(0, 0, 0, 0.12)',
-    }}
+    variant === 'contained' &&
+    css`
+      background-color: rgba(0, 0, 0, 0.12);
+    `}
 
   ${({ disabled, variant }) =>
     disabled &&
-    variant === 'outlined' && {
-      border: 'rgba(0, 0, 0, 0.26)',
-    }}
+    variant === 'outlined' &&
+    css`
+      border: rgba(0, 0, 0, 0.26);
+    `}
 
   > .ripple {
     border-radius: 50%;
     ${({ color }) =>
-      color && {
-        backgroundColor: color,
-      }}
+      color &&
+      css`
+        background-color: ${color};
+      `}
 
     ${({ color, variant }) =>
-      !color && {
-        backgroundColor: variant === 'contained' ? '#FFF' : 'rgba(0, 0, 0, 0.26)',
-      }}
+      !color &&
+      css`
+        ${variant === 'contained'
+          ? css`
+              background-color: '#FFF';
+            `
+          : css`
+              background-color: rgba(0, 0, 0, 0.26);
+            `}
+      `}
 
     position: absolute;
     animation: ripple 0.6s linear;

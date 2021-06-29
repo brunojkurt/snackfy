@@ -48,13 +48,25 @@ const MyComponent = () => {
 | Property  |  Type | Default | Description |
 | ------------------- | ------------------- | ------------------- | ------------------- |
 | maxSnacks | number | 3 | Maximum amount of snackbars that will be displayed at same time (recommended to keep the maximum to 3 snackbars) |
-| placement | placement object |  | Object that determines the vertical and horizontal placement |
+| placement | placement object | undefined | Object that determines the vertical and horizontal placement |
+| customIcon | any | undefined | Property that replace the default snackbar icon |
+| customDismiss | any | undefined | Property to replace the default dismiss icon |
+| customStyle | custom style object | undefined | Object that replace the default style for all snackbars |
 
 ### placement props (object prop from SnackbarProvider)
 | Property  |  Type | Default | Description |
 | ------------------- | ------------------- | ------------------- | ------------------- |
 | vertical | 'top' or 'bottom' | | Prop that determines the vertical placement |
 | horizontal | 'left' or 'center' or 'right' |  | Props that determines the horizontal placement |
+
+### custom style props (object prop from SnackbarProvider and enqueueSnackbar options)
+| Property  |  Type | Default | Description |
+| ------------------- | ------------------- | ------------------- | ------------------- |
+| default | React.CSSProperties | undefined | Prop that overides snackbar default style |
+| success | React.CSSProperties | undefined | Prop that overides snackbar success variant default style |
+| error | React.CSSProperties | undefined | Prop that overides snackbar error variant default style |
+| warning | React.CSSProperties | undefined | Prop that overides snackbar warning variant default style |
+| info | React.CSSProperties | undefined | Prop that overides snackbar info variant default style |
 
 ### enqueueSnackbar props (returns id type: number)
 | Property  |  Type | Default | Description |
@@ -76,6 +88,9 @@ const MyComponent = () => {
 | persist | boolean | false | If set to true, the snackbar will never be closed, unless if you pass the id to closeSnackbar or set dismissible to true (see more below) |
 | dismissible | boolean | false | Set to true to show a close icon (x) in the snackbar that closes the snackbar when pressed|
 | variant |  'sucess' or 'error' or 'warning' or 'info' | | Apply the variant style to the snackbar |
+| customIcon | any | undefined | Property that replace the default snackbar icon (will override Provider customIcon) |
+| customDismiss | any | undefined | Property to replace the default dismiss icon (will override Provider customDismiss) |
+| customStyle | custom style object | undefined | Object that replace the default style for all snackbars (will override Provider customStyle) |
 
 ### action props (object prop from actions)
 | Property  |  Type | Default | Description |

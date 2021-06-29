@@ -1,23 +1,24 @@
 import styled, { css } from 'styled-components';
-import { TPlacement } from '../../types';
+import { TPlacement, TCustomStyleObj } from '../../types';
 
 interface TSnack {
   open: boolean;
   variant?: 'success' | 'error' | 'warning' | 'info';
   placement: TPlacement;
+  customStyle?: TCustomStyleObj;
 }
 
 const success = css`
-  background-color: #43a047 !important;
+  background-color: #43a047;
 `;
 const error = css`
-  background-color: #d32f2f !important;
+  background-color: #d32f2f;
 `;
 const warning = css`
-  background-color: #ff9800 !important;
+  background-color: #ff9800;
 `;
 const info = css`
-  background-color: #2196f3 !important;
+  background-color: #2196f3;
 `;
 
 const variants: { [type: string]: any } = {
@@ -143,6 +144,11 @@ export const Snack = styled.div<TSnack>`
     color: #fff;
     opacity: 0.6;
   }
+
+  ${({ customStyle }) =>
+    customStyle && {
+      ...customStyle,
+    }}
 `;
 
 export const MessageArea = styled.div`
@@ -208,7 +214,7 @@ const wrapperHorizontal: { [type: string]: any } = {
 
 export const SnackWrapper = styled.div<TSnackWrapper>`
   padding: 15px;
-  position: absolute;
+  position: fixed;
   width: auto;
   height: auto;
   overflow: hidden;
